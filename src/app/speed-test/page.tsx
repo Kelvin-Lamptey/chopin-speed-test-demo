@@ -2,7 +2,6 @@
 
 import AuthDisplay from './components/AuthDisplay';
 import SpeedTestView from './components/SpeedTestView';
-import Globe from './components/Globe';
 import './styles.css';
 
 export default function SpeedTestPage() {
@@ -10,12 +9,11 @@ export default function SpeedTestPage() {
     <div className="page-container">
       <header className="page-header">
         <h1 className="page-title">WiFi Speed Test</h1>
-        <Globe />
         <AuthDisplay />
       </header>
 
       <main>
-        <SpeedTestView />
+        <SpeedTestView showGlobe={true} />
       </main>
 
       <footer className="page-footer">

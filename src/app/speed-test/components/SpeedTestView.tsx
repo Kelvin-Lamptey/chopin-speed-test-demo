@@ -5,8 +5,13 @@ import { useAddress } from '@chopinframework/react';
 import { useLocation } from '../lib/location';
 import SpeedTestRunner from './SpeedTestRunner';
 import PastResultsSection from './PastResultsSection';
+import Globe from './Globe';
 
-export default function SpeedTestView() {
+interface SpeedTestViewProps {
+  showGlobe?: boolean;
+}
+
+export default function SpeedTestView({ showGlobe = false }: SpeedTestViewProps) {
   const { location, coordinates, isLocationLoading } = useLocation();
   const { address: chopinAddress, login } = useAddress();
   const [refreshKey, setRefreshKey] = useState(0);
@@ -19,6 +24,13 @@ export default function SpeedTestView() {
 
   return (
     <>
+      {showGlobe && (
+        <Globe 
+          coordinates={coordinates} 
+          isLocationLoading={isLocationLoading} 
+        />
+      )}
+      
       <div className="card location-bar">
         <div className="flex items-center">
           <p className="location-label">Location:</p>
