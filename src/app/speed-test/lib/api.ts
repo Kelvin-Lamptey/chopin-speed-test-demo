@@ -2,6 +2,7 @@ import { SpeedTestResult } from './types';
 
 export interface SubmitSpeedTestParams {
   location: string;
+  locationTag: string;
   speedTestResults: SpeedTestResult;
   coordinates: { lat: number; lng: number } | null;
   submissionId: string;
@@ -20,6 +21,7 @@ export const submitSpeedTestResults = async (params: SubmitSpeedTestParams) => {
       },
       body: JSON.stringify({
         location: params.location,
+        location_tag: params.locationTag,
         download_speed: params.speedTestResults.download,
         upload_speed: params.speedTestResults.upload,
         ping: params.speedTestResults.ping,

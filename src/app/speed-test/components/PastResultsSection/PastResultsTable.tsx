@@ -27,6 +27,7 @@ export default function PastResultsTable({
           <tr>
             <th>Timestamp</th>
             <th>Location</th>
+            <th>Location Tag</th>
             <th>Download (Mbps)</th>
             <th>Upload (Mbps)</th>
             <th>Ping (ms)</th>
@@ -36,7 +37,20 @@ export default function PastResultsTable({
           {pastResults.map((result) => (
             <tr key={result.id}>
               <td>{new Date(result.timestamp).toLocaleString()}</td>
-              <td>{result.location}</td>
+              <td>
+                {result.latitude && result.longitude ? (
+                  <a
+                    href={`https://www.google.com/maps?q=${result.latitude},${result.longitude}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {result.location}
+                  </a>
+                ) : (
+                  result.location
+                )}
+              </td>
+              <td>{result.location_tag}</td>
               <td>{result.download_speed.toFixed(2)}</td>
               <td>{result.upload_speed.toFixed(2)}</td>
               <td>{result.ping.toFixed(1)}</td>
@@ -65,4 +79,4 @@ export default function PastResultsTable({
       </div>
     </div>
   );
-} 
+}

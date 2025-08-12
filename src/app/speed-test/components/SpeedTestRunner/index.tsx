@@ -9,11 +9,12 @@ import ResultsDisplay from './ResultsDisplay';
 
 interface SpeedTestRunnerProps {
   location: string;
+  locationTag: string;
   coordinates: { lat: number; lng: number } | null;
   onSubmissionComplete: () => void;
 }
 
-export default function SpeedTestRunner({ location, coordinates, onSubmissionComplete }: SpeedTestRunnerProps) {
+export default function SpeedTestRunner({ location, locationTag, coordinates, onSubmissionComplete }: SpeedTestRunnerProps) {
   const [speedTestResults, setSpeedTestResults] = useState<SpeedTestResult | null>(null);
   const [isTestRunning, setIsTestRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -60,6 +61,7 @@ export default function SpeedTestRunner({ location, coordinates, onSubmissionCom
 
     const result = await submitSpeedTestResults({
       location,
+      locationTag,
       speedTestResults,
       coordinates,
       submissionId: freshSubmissionId,
@@ -105,6 +107,7 @@ export default function SpeedTestRunner({ location, coordinates, onSubmissionCom
       {speedTestResults && (
         <ResultsDisplay
           speedTestResults={speedTestResults}
+          locationTag={locationTag}
           setSpeedTestResults={setSpeedTestResults}
           setIsTestRunning={setIsTestRunning}
           setSubmissionMessage={setSubmissionMessage}

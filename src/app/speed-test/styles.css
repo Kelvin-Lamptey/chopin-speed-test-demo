@@ -112,6 +112,33 @@
 .location-bar .location-text {
     color: #374151; /* Gray 700 */
 }
+.location-tag-input {
+    margin-bottom: 1rem;
+}
+.location-tag-input .flex {
+    display: flex;
+}
+.location-tag-input .flex-col {
+    flex-direction: column;
+}
+.location-tag-input .gap-2 {
+    gap: 0.5rem;
+}
+.location-tag-input-field {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    border: 1px solid #d1d5db; /* Gray 300 */
+    border-radius: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    color: #374151; /* Gray 700 */
+    background-color: white;
+    font-size: 0.875rem;
+    width: 100%;
+}
+.location-tag-input-field:focus {
+    outline: none;
+    border-color: #4f46e5; /* Indigo 600 */
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
 .login-prompt {
     text-align: center;
     margin-top: 2rem;
@@ -182,6 +209,15 @@
 }
 .results-display-container .submission-message {
     margin-top: 0.5rem;
+    font-size: 0.875rem; /* text-sm */
+}
+.results-display-container .validation-message {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #fef3c7; /* Yellow 100 */
+    border: 1px solid #f59e0b; /* Yellow 500 */
+    color: #92400e; /* Yellow 800 */
     font-size: 0.875rem; /* text-sm */
 }
 .results-display-container .submission-error {

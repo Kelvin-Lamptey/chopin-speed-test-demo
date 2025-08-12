@@ -17,6 +17,21 @@ const locations = [
   { city: 'Mumbai', country: 'India', latitude: 19.0760, longitude: 72.8777 },
 ];
 
+const locationTags = [
+  'Home Office',
+  'Coffee Shop',
+  'Library',
+  'Coworking Space',
+  'Hotel Lobby',
+  'Airport Terminal',
+  'Restaurant',
+  'University Campus',
+  'Shopping Mall',
+  'Park WiFi',
+  'Train Station',
+  'Office Building',
+];
+
 async function seedDatabase() {
   console.log('Seeding database with consistent locations...');
   try {
@@ -25,9 +40,11 @@ async function seedDatabase() {
 
     for (let i = 0; i < 100; i++) {
       const locationData = faker.helpers.arrayElement(locations);
+      const locationTag = faker.helpers.arrayElement(locationTags);
       
       const testResult = {
         location: `${locationData.city}, ${locationData.country}`,
+        location_tag: locationTag,
         download_speed: faker.number.float({ min: 10, max: 1000, fractionDigits: 2 }),
         upload_speed: faker.number.float({ min: 5, max: 500, fractionDigits: 2 }),
         ping: faker.number.float({ min: 1, max: 100, fractionDigits: 1 }),

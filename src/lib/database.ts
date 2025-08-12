@@ -8,6 +8,7 @@ let db: Database | null = null;
 // The SpeedTestResult from the client/oracle
 export interface SpeedTestPayload {
   location: string;
+  location_tag: string;
   download_speed: number;
   upload_speed: number;
   ping: number;
@@ -67,6 +68,7 @@ export const initDB = async () => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       submission_id TEXT NOT NULL UNIQUE,
       location TEXT NOT NULL,
+      location_tag TEXT NOT NULL,
       download_speed REAL NOT NULL,
       upload_speed REAL NOT NULL,
       ping REAL NOT NULL,
@@ -77,6 +79,22 @@ export const initDB = async () => {
     )
   `);
 
+  // Migration: Add location_tag column if it doesn't exist
+  try {
+    await db.exec(`ALTER TABLE speed_tests ADD COLUMN location_tag TEXT`);
+    console.log('Added location_tag column to existing table');
+  } catch (error) {
+    // Column probably already exists, which is fine
+    // SQLite throws an error if the column already exists
+  }
+
+  // Update any existing records that have NULL location_tag
+  await db.exec(`
+    UPDATE speed_tests 
+    SET location_tag = 'Legacy Entry' 
+    WHERE location_tag IS NULL
+  `);
+
   return db;
 };
 
@@ -84,7 +102,8 @@ export const insertSpeedTest = async (result: SpeedTestPayload) => {
   const db = await initDB();
   const { 
     submission_id,
-    location, 
+    location,
+    location_tag,
     download_speed, 
     upload_speed, 
     ping, 
@@ -95,8 +114,8 @@ export const insertSpeedTest = async (result: SpeedTestPayload) => {
   } = result;
 
   await db.run(
-    'INSERT INTO speed_tests (submission_id, location, download_speed, upload_speed, ping, timestamp, address, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [submission_id, location.trim(), download_speed, upload_speed, ping, new Date(timestamp), address, latitude, longitude]
+    'INSERT INTO speed_tests (submission_id, location, location_tag, download_speed, upload_speed, ping, timestamp, address, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [submission_id, location.trim(), location_tag.trim(), download_speed, upload_speed, ping, new Date(timestamp), address, latitude, longitude]
   );
 };
 
