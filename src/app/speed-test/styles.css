@@ -64,14 +64,16 @@
 
 .page-header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 1rem;
+    text-align: center;
 }
 
 .page-title {
     font-size: 1.5rem; /* text-2xl */
     font-weight: 700;
+    margin-bottom: 1rem;
 }
 
 .page-footer {
@@ -79,6 +81,26 @@
     margin-top: 2rem;
     font-size: 0.875rem; /* text-sm */
     color: #6b7280; /* Gray 500 */
+}
+
+/* Globe Component Styles */
+.globe-container {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+/* Responsive adjustments for the header */
+@media (min-width: 768px) {
+    .page-header {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+    
+    .page-title {
+        margin-bottom: 0;
+    }
 }
 
 /* Component: AuthDisplay */
